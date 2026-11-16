@@ -1,0 +1,29 @@
+{
+  "name": "word-store-host",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next dev -p 3100",
+    "build": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next build",
+    "start": "next start -p 3100",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@module-federation/nextjs-mf": "8.8.23",
+    "next": "15.2.9",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "webpack": "5.101.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.3",
+    "@types/react": "18.3.20",
+    "@types/react-dom": "18.3.5",
+    "cross-env": "7.0.3",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "enhanced-resolve": "5.18.3"
+  }
+}
+
