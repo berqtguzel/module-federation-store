@@ -10,4 +10,3 @@ document.body.style.background = '#f4f6f8';
 document.body.appendChild(rootElement);
 
 createRoot(rootElement).render(<App />);
-

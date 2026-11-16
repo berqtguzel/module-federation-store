@@ -5,7 +5,7 @@ const { container } = require('webpack');
 const { ModuleFederationPlugin } = container;
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
@@ -18,6 +18,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
@@ -49,7 +53,10 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      title: 'Basket application'
+      title: 'Basket application',
+      meta: {
+        viewport: 'width=device-width, initial-scale=1'
+      }
     })
   ],
   devServer: {

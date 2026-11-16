@@ -2,7 +2,7 @@ import type { RemoteModule } from './FederatedRemote';
 
 type Container = {
   init: (shareScope: unknown) => Promise<void> | void;
-  get: (module: string) => Promise<() => RemoteModule>;
+  get: (module: string) => Promise<() => unknown>;
 };
 
 type RemoteWindow = Window & Record<string, Container | undefined>;
@@ -67,7 +67,11 @@ function loadContainer(url: string, scope: string) {
   return promise;
 }
 
-export async function loadRemote({ url, scope, module }: RemoteDefinition): Promise<RemoteModule> {
+export async function loadRemote<Props extends object>({
+  url,
+  scope,
+  module
+}: RemoteDefinition): Promise<RemoteModule<Props>> {
   const container = await loadContainer(url, scope);
   await __webpack_init_sharing__('default');
 
@@ -77,6 +81,6 @@ export async function loadRemote({ url, scope, module }: RemoteDefinition): Prom
   }
 
   const factory = await container.get(module);
-  return factory();
+  return factory() as RemoteModule<Props>;
 }
 

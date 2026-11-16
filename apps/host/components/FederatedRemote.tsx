@@ -1,22 +1,27 @@
 import type { ComponentType } from 'react';
 import { useEffect, useState } from 'react';
 
-export type RemoteModule = {
-  default: ComponentType;
+export type RemoteModule<Props extends object = Record<string, never>> = {
+  default: ComponentType<Props>;
 };
 
-type RemoteState =
+type RemoteState<Props extends object> =
   | { status: 'loading' }
-  | { status: 'ready'; Component: ComponentType }
+  | { status: 'ready'; Component: ComponentType<Props> }
   | { status: 'error' };
 
-type FederatedRemoteProps = {
+type FederatedRemoteProps<Props extends object> = {
   label: string;
-  loader: () => Promise<RemoteModule>;
+  loader: () => Promise<RemoteModule<Props>>;
+  componentProps: Props;
 };
 
-export default function FederatedRemote({ label, loader }: FederatedRemoteProps) {
-  const [state, setState] = useState<RemoteState>({ status: 'loading' });
+export default function FederatedRemote<Props extends object>({
+  label,
+  loader,
+  componentProps
+}: FederatedRemoteProps<Props>) {
+  const [state, setState] = useState<RemoteState<Props>>({ status: 'loading' });
 
   useEffect(() => {
     let active = true;
@@ -50,6 +55,7 @@ export default function FederatedRemote({ label, loader }: FederatedRemoteProps)
     );
   }
 
-  return <state.Component />;
+  const Component = state.Component;
+  return <Component {...componentProps} />;
 }
 

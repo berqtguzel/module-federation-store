@@ -1,0 +1,150 @@
+.basket-remote {
+  position: sticky;
+  top: 24px;
+  width: 100%;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #eaecf0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(16, 24, 40, 0.08);
+}
+
+.basket-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.basket-header .ant-typography {
+  margin: 4px 0 0;
+  font-size: 1.45rem;
+  letter-spacing: -0.025em;
+}
+
+.basket-eyebrow {
+  color: #1677ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.basket-count {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #475467;
+  background: #f2f4f7;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.basket-empty {
+  padding: 30px 0 22px;
+}
+
+.basket-list .ant-list-item {
+  padding: 16px 0;
+}
+
+.basket-item {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  gap: 12px;
+}
+
+.basket-item .ant-image,
+.basket-item .ant-image-img {
+  flex: 0 0 auto;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #f8f9fb;
+}
+
+.basket-item-content {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.basket-item-title {
+  max-width: 100%;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.basket-unit-price {
+  font-size: 0.78rem;
+}
+
+.basket-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.basket-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.basket-quantity .ant-btn {
+  width: 30px;
+  min-width: 30px;
+  padding-inline: 0;
+}
+
+.basket-quantity span {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.basket-actions > .ant-btn-link {
+  height: auto;
+  padding: 0;
+}
+
+.basket-remote .ant-divider {
+  margin: 10px 0 18px;
+}
+
+.basket-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 1rem;
+}
+
+.basket-total-row strong {
+  color: #101828;
+  font-size: 1.3rem;
+}
+
+@media (max-width: 1023px) {
+  .basket-remote {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .basket-remote {
+    padding: 18px;
+  }
+
+  .basket-item .ant-image,
+  .basket-item .ant-image-img {
+    width: 56px !important;
+    height: 68px !important;
+  }
+}
