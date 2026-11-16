@@ -1,0 +1,153 @@
+.catalog {
+  width: 100%;
+  min-width: 0;
+  color: #1f1f1f;
+}
+.catalogHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eaecf0;
+}
+
+.catalogHeader h2 {
+  margin: 6px 0 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.catalogHeader p {
+  max-width: 430px;
+  margin: 0;
+  color: #667085;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  color: #1677ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.productColumn {
+  display: flex;
+}
+
+.productCard {
+  width: 100%;
+  overflow: hidden;
+  border-color: #eaecf0;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+}
+
+.productCard :global(.ant-card-body) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.imageFrame {
+  display: grid;
+  aspect-ratio: 4 / 5;
+  place-items: center;
+  padding: 28px;
+  overflow: hidden;
+  background: #f8f9fb;
+}
+
+.imageFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 220ms ease;
+}
+
+.productCard:hover .imageFrame img {
+  transform: scale(1.035);
+}
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.category {
+  display: block;
+  color: #667085;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.productTitle {
+  display: -webkit-box;
+  min-height: 48px;
+  margin: 8px 0 10px !important;
+  overflow: hidden;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.rating > span:first-child {
+  color: #faad14;
+}
+
+.cardFooter {
+  display: grid;
+  gap: 14px;
+}
+
+.price {
+  color: #101828;
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.statePanel {
+  width: 100%;
+  min-height: 180px;
+}
+
+.skeletonImage {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 4 / 5;
+}
+
+@media (max-width: 767px) {
+  .catalogHeader {
+    align-items: start;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+  }
+
+  .imageFrame,
+  .skeletonImage {
+    aspect-ratio: 4 / 3;
+  }
+}

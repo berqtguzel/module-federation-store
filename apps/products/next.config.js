@@ -8,7 +8,7 @@ const nextConfig = {
         name: 'products',
         filename: 'static/chunks/remoteEntry.js',
         exposes: {
-          './ProductCard': './components/ProductCard.tsx'
+          './ProductCatalog': './components/catalog/ProductCatalog.tsx'
         },
         extraOptions: {
           exposePages: false

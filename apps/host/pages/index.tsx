@@ -5,11 +5,11 @@ import { loadRemote } from '../components/loadRemote';
 const productsRemoteUrl = process.env.PRODUCTS_REMOTE_URL || 'http://localhost:3101';
 const basketRemoteUrl = process.env.BASKET_REMOTE_URL || 'http://localhost:3102';
 
-const loadProductCard = () =>
+const loadProductCatalog = () =>
   loadRemote({
     url: `${productsRemoteUrl}/_next/static/chunks/remoteEntry.js`,
     scope: 'products',
-    module: './ProductCard'
+    module: './ProductCatalog'
   });
 
 const loadBasketSummary = () =>
@@ -33,8 +33,12 @@ export default function HomePage() {
           <p>Products ve Basket uygulamaları çalışma zamanında remote entry dosyalarından yüklenir.</p>
         </header>
         <section className="remote-grid" aria-label="Federated uygulamalar">
-          <FederatedRemote label="Ürünler" loader={loadProductCard} />
-          <FederatedRemote label="Sepet" loader={loadBasketSummary} />
+          <div className="products-slot">
+            <FederatedRemote label="Ürünler" loader={loadProductCatalog} />
+          </div>
+          <aside className="basket-slot">
+            <FederatedRemote label="Sepet" loader={loadBasketSummary} />
+          </aside>
         </section>
       </main>
     </>

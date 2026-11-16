@@ -15,7 +15,7 @@ body {
 }
 
 .page-shell {
-  width: min(1080px, calc(100% - 32px));
+  width: min(1440px, calc(100% - 48px));
   margin: 0 auto;
   padding: 72px 0;
 }
@@ -48,8 +48,14 @@ h1 {
 
 .remote-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: start;
+  gap: 28px;
+}
+
+.products-slot,
+.basket-slot {
+  min-width: 0;
 }
 
 .remote-state {
@@ -70,13 +76,16 @@ h1 {
   background: #fdedec;
 }
 
-@media (max-width: 720px) {
-  .page-shell {
-    padding: 44px 0;
-  }
-
+@media (max-width: 1023px) {
   .remote-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100% - 32px, 640px);
+    padding: 44px 0;
   }
 }
 

@@ -1,11 +1,17 @@
-import ProductCard from '../components/ProductCard';
+import Head from 'next/head';
+import ProductCatalog from '../components/catalog/ProductCatalog';
 
 export default function ProductsPage() {
   return (
-    <main>
-      <h1>Products uygulaması</h1>
-      <ProductCard />
-    </main>
+    <>
+      <Head>
+        <title>Ürünler | Word Store</title>
+        <meta name="description" content="Word Store ürün kataloğu" />
+      </Head>
+      <main className="products-page">
+        <ProductCatalog />
+      </main>
+    </>
   );
 }
 
