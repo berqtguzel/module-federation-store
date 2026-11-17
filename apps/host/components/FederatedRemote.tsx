@@ -58,4 +58,3 @@ export default function FederatedRemote<Props extends object>({
   const Component = state.Component;
   return <Component {...componentProps} />;
 }
-

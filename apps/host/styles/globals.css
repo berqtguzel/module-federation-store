@@ -109,6 +109,7 @@ body {
 }
 
 .basket-slot {
+  /* Masaüstünde sepet, uzun katalog kaydırılırken navbar altında görünür kalır. */
   position: sticky;
   top: 78px;
   scroll-margin-top: 82px;
@@ -138,6 +139,7 @@ body {
   }
 
   .basket-slot {
+    /* Tek kolonlu dar ekranda iç içe kaydırma yerine doğal belge akışı kullanılır. */
     position: static;
   }
 }
@@ -152,4 +154,3 @@ body {
     padding: 24px 0 48px;
   }
 }
-

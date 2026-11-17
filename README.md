@@ -84,6 +84,29 @@ npm run dev
 
 Ardından Host'u `http://localhost:3100` adresinde açın. Products tek başına `http://localhost:3101`, Basket'in boş sepet standalone görünümü `http://localhost:3102` adresindedir.
 
+## Debug çalıştırma
+
+Node.js inspector ile debug için her uygulamayı ayrı PowerShell terminalinde, çakışmayan bir inspector portuyla başlatın:
+
+```powershell
+Set-Location apps/host
+$env:NEXT_PRIVATE_LOCAL_WEBPACK = 'true'
+node --inspect=9230 .\node_modules\next\dist\bin\next dev -p 3100
+```
+
+```powershell
+Set-Location apps/products
+$env:NEXT_PRIVATE_LOCAL_WEBPACK = 'true'
+node --inspect=9231 .\node_modules\next\dist\bin\next dev -p 3101
+```
+
+```powershell
+Set-Location apps/basket
+node --inspect=9232 .\node_modules\webpack-cli\bin\cli.js serve --mode development --port 3102
+```
+
+Next.js inspector oturumlarından sonra `Remove-Item Env:NEXT_PRIVATE_LOCAL_WEBPACK` ile geçici değişkeni temizleyin. Development ve debug süreçleri ön planda çalışır; `Ctrl+C` işlemi sonlandırır ve bağlı portu serbest bırakır. Next.js, Webpack Dev Server ve `serve` erişim/derleme loglarını dosyaya değil standart çıktı ve standart hata akışlarına yazar.
+
 ## Production build ve yerel servis
 
 Her uygulamayı kendi dizininde build edin:
@@ -155,7 +178,7 @@ npm run build
 
 ## Veri ve bileşen akışı
 
-Products içindeki [`productsApi`](apps/products/api/productsApi.ts), `createApi` ve `fetchBaseQuery` ile `/products` çağrısını tanımlar. RTK Query başarılı sonucu 300 saniye (`keepUnusedDataFor`) önbellekte tutar. [`productsStore`](apps/products/store/productsStore.ts) modül seviyesinde bir kez oluşturulduğu için her render'da yeni store kurulmaz. Host ürünleri ayrıca istemez; sorgu yalnız Products Remote içinde yapılır.
+Products içindeki [`productsApi`](apps/products/api/productsApi.ts), `createApi` ve `fetchBaseQuery` ile `/products` çağrısını tanımlar. `keepUnusedDataFor: 300`, sorgunun son abonesi ayrıldıktan sonra kullanılmayan cache verisinin 300 saniye daha saklanacağı anlamına gelir; aktif abonelik varken başlayan sabit bir “veri geçerlilik süresi” değildir. [`productsStore`](apps/products/store/productsStore.ts) modül seviyesinde bir kez oluşturulduğu için her render'da yeni store kurulmaz. Host ürünleri ayrıca istemez; sorgu yalnız Products Remote içinde yapılır.
 
 [`withProductQuery`](apps/products/components/catalog/withProductQuery.tsx) HOC'u loading, API hatası, tekrar deneme ve boş liste durumlarını sorgudan ayırır. Başarılı veriyi yalnızca sunum sorumluluğu taşıyan `ProductCatalogView` bileşenine geçirir.
 
@@ -163,7 +186,12 @@ Products içindeki [`productsApi`](apps/products/api/productsApi.ts), `createApi
 
 ## Tasarım referansı
 
-Referans, [Ant for Figma E-commerce Template](https://www.antforfigma.com/templates/e-commerce-template) sayfasıdır. Sayfadaki “Preview template in Figma” bağlantısı `ogRzeQinLycCRFKjUN9ZXo` dosyasının `317:21821` node'una yönlenmektedir. Doğrudan Figma embed'i erişim sırasında 403 verdiği için birebir Figma incelemesi yapılamadı. Herkese açık Ant for Figma sayfasında masaüstü “Shop by Collection” ve “Beard Oil Pro” ürün detay görselleri doğrulandı; ürün listeleme frame'i ve mobil Figma frame'i doğrulanamadı. Bu nedenle uygulama Ant Design'ın grid, kart, tipografi ve responsive ilkelerini referans alır; erişilemeyen ekranlarla piksel düzeyinde eşleşme iddia edilmez.
+Tasarım yönü, Word Case Study ile paylaşılan Ant Design/Figma mağaza ve “Shopping Carts” ekran görüntülerinden ve [Ant for Figma E-commerce Template](https://www.antforfigma.com/templates/e-commerce-template) genel önizlemesinden alınmıştır. “Preview template in Figma” bağlantısı `ogRzeQinLycCRFKjUN9ZXo` dosyasının `317:21821` node'una yönlense de doğrudan Figma embed'i erişim sırasında 403 verdi; bu nedenle erişilemeyen frame'lerle piksel düzeyinde eşleşme iddia edilmez.
+
+- Tipografi, SF Pro Text görünümüne yaklaşan native sistem font dizisini kullanır. “Ürünler” başlığı masaüstünde 38 px/600, ürün adı 16 px, gövde 14 px ve ikincil bilgi 12 px olarak düzenlendi. İnce beyaz navbar, Ant Design mavisi işlemler ve toplam adet rozeti görsel hiyerarşiyi tamamlar.
+- Ürün kartlarında beyaz yüzey, açık gri ince kenarlık, hafif gölge ve hizalı görsel alanı kullanılır. İki satırla sınırlanan uzun adlar fiyat ile “Sepete ekle” düğmesinin kartlar arasında aynı hizada kalmasını sağlar.
+- Sepet satırı, referanstaki gibi solda küçük görsel, ortada ürün adı/birim fiyat/adet kontrolleri, sağda satır tutarı ve “Sil” işlemi olacak şekilde bölünür. İnce ayırıcılar kullanılır; ara toplam panelin altında görünür kalır. Referansta bulunan checkout, stok, kargo, beden ve renk alanları case study kapsamına alınmadı.
+- 1080 px üzerindeki iki kolonlu masaüstü düzende sepet paneli navbar altında 78 px boşlukla sticky kalır. Sepet ekran yüksekliğini aşarsa yalnız ürün listesi kayar ve toplam görünür kalır. 1080 px ve altında katalog ile sepet tek kolona geçer; sepet `position: static` ile normal belge akışında kataloğun altına yerleşir. Bu karar dar ekranda kullanılabilir alanı korur ve iç içe kaydırma/yatay taşma riskini azaltır.
 
 ## SOLID değerlendirmesi
 
@@ -186,10 +214,10 @@ Referans, [Ant for Figma E-commerce Template](https://www.antforfigma.com/templa
 | V. Build, release, run | Kısmen | `build` ve `start` aşamaları ayrıdır. Sürümlü artefakt/release otomasyonu ve CI/CD tanımı yoktur. |
 | VI. Processes | Karşılanıyor | Uygulama süreçleri kalıcı yerel state'e dayanmaz. Sepetin yenilemede sıfırlanması bunun bilinçli sonucudur. |
 | VII. Port binding | Karşılanıyor | Üç uygulama 3100, 3101 ve 3102 portlarından kendini servis eder. |
-| VIII. Concurrency | Eksik | Yatay ölçekleme ve süreç modeli bu case study kapsamında tanımlanmadı/test edilmedi. |
-| IX. Disposability | Kısmen | Remote kesintisi Host'u düşürmez ve süreçler hızlı başlar; özel graceful shutdown/health-check yoktur. |
-| X. Dev/prod parity | Kısmen | Aynı lock dosyaları ve Federation yapısı kullanılır; container/altyapı tanımı olmadığı için ortam eşitliği garanti edilmez. |
-| XI. Logs | Eksik | Yapılandırılmış merkezi log, metric ve tracing yoktur. |
+| VIII. Concurrency | Kısmen | Üç uygulama bağımsız süreç ve artefakt olarak ayrı ayrı çoğaltılabilir; istemci tarafındaki sepet sunucu instance state'ine bağlı değildir. Doğrulama tek Host ve tek remote instance ile yapıldı; çoklu replica, load balancer ve yatay ölçek yük testi yapılmadı. |
+| IX. Disposability | Kısmen | Development ve production süreçlerinin ön planda başladığı, log ürettiği ve `Ctrl+C` ile kapanıp portlarını serbest bıraktığı doğrulandı. Remote kesintisi Host'u düşürmez; ancak özel signal/graceful shutdown kodu ve health-check yoktur. |
+| X. Dev/prod parity | Kısmen | Aynı lock dosyaları, ortam değişkenleri ve Federation sözleşmeleriyle development sunucuları ile production build/start akışları yerelde çalıştırıldı. Next.js dev sunucusu ile optimize `.next`, ayrıca Webpack Dev Server ile statik `dist` sunumu farklıdır; container veya production altyapısı olmadığı için tam ortam eşitliği doğrulanmadı. |
+| XI. Logs | Kısmen | Host, Products ve Basket süreçlerinin başlangıç, derleme ve HTTP erişim loglarını standart çıktı/standart hataya yazdığı doğrulandı. Uygulama log dosyası tutmaz; merkezi toplama, yapılandırılmış log, metric ve tracing yoktur. |
 | XII. Admin processes | Eksik | Migration veya tek seferlik yönetim işi bulunmadığı için admin process akışı tanımlanmamıştır. |
 
 ## Teslim doğrulaması
@@ -201,11 +229,14 @@ Production sunucuları yukarıdaki `npm start` komutlarıyla açılarak headless
 - Products ve Basket remote entry istekleri birer kez 200 döndü; her iki remote'un gerekli ikişer chunk isteği başarılı oldu.
 - Fake Store `/products` isteği normal açılışta bir kez 200 döndü ve 20 gerçek ürün gösterildi.
 - İlk ürün eklendiğinde adet `1`, toplam `$109,95`; artırıldığında adet `2`, toplam `$219,90`; azaltıldığında yeniden `1` ve `$109,95` oldu. Silme sonrası boş sepet gösterildi.
-- 390 × 844 emülasyonda document genişliği 390 px kaldı; yatay taşma oluşmadı.
+- 1440 × 800 emülasyonda katalog kaydırılırken sepet paneli navbar altında sticky kaldı; uzun sepette yalnız ürün listesi kaydı ve ara toplam görünür kaldı.
+- 390 × 844 emülasyonda sepet normal belge akışına geçti, document genişliği 390 px kaldı ve yatay taşma oluşmadı.
 - Basket sunucusu durdurulduğunda Host başlığı ve 20 ürün görünmeye devam etti; Basket alanında “Sepet şu anda kullanılamıyor” fallback'i gösterildi.
 - Tarayıcı konsolunda hata gözlenmedi.
 
-Basket production build'i başarılıdır ancak Webpack asset-size uyarısı sürmektedir: `142.ca60ed001b2a95ea519e.js` adlı `vendors` chunk'ı 519 KiB'dir; önerilen 244 KiB sınırını aşar. Bu işlevsel hata değildir, fakat Ant Design tarafında bileşen/stil bazlı ayrıştırma ve bundle analiziyle ayrıca ele alınmalıdır.
+17 Kasım 2026 tarihinde son responsive dokümantasyon düzenlemelerinden sonra üç uygulamanın `npm run typecheck` ve `npm run build` komutları yeniden başarıyla tamamlandı. Development süreçleri izole 4200–4202 portlarında başlatıldı; başlangıç, derleme ve HTTP loglarının standart çıktıda olduğu, ardından `Ctrl+C` ile kapandıkları ve portları serbest bıraktıkları doğrulandı.
+
+Basket production build'i başarılıdır ancak Webpack asset-size uyarısı sürmektedir: `967.35b660a7731484635f01.js` adlı `vendors` chunk'ı 514 KiB'dir; önerilen 244 KiB sınırını aşar. Bu işlevsel hata değildir, fakat Ant Design tarafında bileşen/stil bazlı ayrıştırma ve bundle analiziyle ayrıca ele alınmalıdır.
 
 ## Güvenlik denetimi
 

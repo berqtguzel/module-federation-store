@@ -83,4 +83,3 @@ export async function loadRemote<Props extends object>({
   const factory = await container.get(module);
   return factory() as RemoteModule<Props>;
 }
-
