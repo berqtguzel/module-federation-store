@@ -7,33 +7,26 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 32px;
-  margin-bottom: 32px;
-  padding-bottom: 24px;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
   border-bottom: 1px solid #eaecf0;
 }
 
 .catalogHeader h2 {
-  margin: 6px 0 0;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
+  margin: 0;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
 .catalogHeader p {
   max-width: 430px;
   margin: 0;
   color: #667085;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.eyebrow {
-  color: #1677ff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .productColumn {
@@ -43,8 +36,9 @@
 .productCard {
   width: 100%;
   overflow: hidden;
-  border-color: #eaecf0;
-  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  border-color: #eeeeee;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.05);
 }
 
 .productCard :global(.ant-card-body) {
@@ -57,9 +51,9 @@
   display: grid;
   aspect-ratio: 4 / 5;
   place-items: center;
-  padding: 28px;
+  padding: 24px;
   overflow: hidden;
-  background: #f8f9fb;
+  background: #fafafa;
 }
 
 .imageFrame img {
@@ -78,26 +72,26 @@
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
 }
 
 .category {
   display: block;
   color: #667085;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .productTitle {
   display: -webkit-box;
-  min-height: 48px;
-  margin: 8px 0 10px !important;
+  min-height: 44px;
+  margin: 6px 0 8px !important;
   overflow: hidden;
-  font-size: 1rem !important;
+  font-size: 16px !important;
   font-weight: 600 !important;
-  line-height: 1.5 !important;
+  line-height: 1.375 !important;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
@@ -106,8 +100,9 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.82rem;
-  font-weight: 600;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .rating > span:first-child {
@@ -116,14 +111,14 @@
 
 .cardFooter {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .price {
   color: #101828;
-  font-size: 1.35rem;
-  font-weight: 750;
-  letter-spacing: -0.025em;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .statePanel {
@@ -144,6 +139,10 @@
     gap: 12px;
     margin-bottom: 20px;
     padding-bottom: 18px;
+  }
+
+  .catalogHeader h2 {
+    font-size: 32px;
   }
 
   .imageFrame,

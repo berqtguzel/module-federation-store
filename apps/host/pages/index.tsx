@@ -28,6 +28,10 @@ const loadBasketSummary = () =>
 
 export default function HomePage() {
   const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+  const basketItemCount = useMemo(
+    () => basketItems.reduce((total, item) => total + item.quantity, 0),
+    [basketItems]
+  );
 
   const handleAddToBasket = useCallback((product: Product) => {
     setBasketItems((currentItems) => {
@@ -90,14 +94,23 @@ export default function HomePage() {
     <>
       <Head>
         <title>Word Store Federation</title>
-        <meta name="description" content="Module Federation storefront foundation" />
+        <meta name="description" content="Word Store ürün kataloğu" />
       </Head>
+      <header className="store-nav">
+        <div className="store-nav-inner">
+          <span className="store-name">Word Store</span>
+          <a className="basket-link" href="#basket-panel" aria-label={`Sepete git, ${basketItemCount} ürün`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H7" />
+              <circle cx="10" cy="20" r="1" />
+              <circle cx="18" cy="20" r="1" />
+            </svg>
+            <span>Sepet</span>
+            <span className="basket-badge" data-testid="nav-basket-count">{basketItemCount}</span>
+          </a>
+        </div>
+      </header>
       <main className="page-shell">
-        <header className="hero">
-          <span className="eyebrow">Word Frontend Developer Case Study</span>
-          <h1>Bağımsız uygulamalar, tek mağaza deneyimi</h1>
-          <p>Products ve Basket uygulamaları çalışma zamanında remote entry dosyalarından yüklenir.</p>
-        </header>
         <section className="remote-grid" aria-label="Federated uygulamalar">
           <div className="products-slot">
             <FederatedRemote
@@ -106,7 +119,7 @@ export default function HomePage() {
               componentProps={productCatalogProps}
             />
           </div>
-          <aside className="basket-slot">
+          <aside className="basket-slot" id="basket-panel">
             <FederatedRemote label="Sepet" loader={loadBasketSummary} componentProps={basketProps} />
           </aside>
         </section>

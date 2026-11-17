@@ -24,26 +24,24 @@ export default function ProductCatalog({ onAddToBasket }: ProductCatalogProps) {
             colorText: '#1f1f1f',
             colorTextSecondary: '#667085',
             colorBorderSecondary: '#eaecf0',
-            borderRadius: 10,
-            fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+            borderRadius: 8,
+            fontSize: 14,
+            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif'
           },
           components: {
             Button: {
-              controlHeight: 42,
+              controlHeight: 38,
               fontWeight: 600
             },
             Card: {
-              bodyPadding: 18
+              bodyPadding: 16
             }
           }
         }}
       >
         <section className={styles.catalog} data-testid="products-remote">
           <header className={styles.catalogHeader}>
-            <div>
-              <span className={styles.eyebrow}>Koleksiyon</span>
-              <h2>Günün ürünleri</h2>
-            </div>
+            <h2>Ürünler</h2>
             <p>Özenle seçilmiş ürünleri keşfedin. Fiyatlar USD olarak gösterilir.</p>
           </header>
           <CatalogWithQuery onAddToBasket={onAddToBasket} />

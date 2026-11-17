@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Button, ConfigProvider, Divider, Empty, Image, List, Typography, message } from 'antd';
+import { Button, ConfigProvider, Empty, Image, List, Typography, message } from 'antd';
 import trTR from 'antd/locale/tr_TR';
 import type { BasketItem, BasketSummaryProps } from './types';
 import './BasketSummary.css';
@@ -12,7 +12,7 @@ const priceFormatter = new Intl.NumberFormat('tr-TR', {
 });
 
 export default function BasketSummary({ items, onIncrease, onDecrease, onRemove }: BasketSummaryProps) {
-  const [messageApi, messageContext] = message.useMessage();
+  const [messageApi, messageContext] = message.useMessage({ maxCount: 1 });
   const previousItemsRef = useRef<BasketItem[] | null>(null);
   const itemCount = useMemo(() => items.reduce((sum, item) => sum + item.quantity, 0), [items]);
   const total = useMemo(() => items.reduce((sum, item) => sum + item.price * item.quantity, 0), [items]);
@@ -27,7 +27,12 @@ export default function BasketSummary({ items, onIncrease, onDecrease, onRemove 
       });
 
       if (addedItem) {
-        void messageApi.success(`${addedItem.title} sepete eklendi`, 1.5);
+        messageApi.open({
+          key: 'basket-added',
+          type: 'success',
+          content: `${addedItem.title} sepete eklendi`,
+          duration: 1.2
+        });
       }
     }
 
@@ -43,8 +48,9 @@ export default function BasketSummary({ items, onIncrease, onDecrease, onRemove 
           colorText: '#1f1f1f',
           colorTextSecondary: '#667085',
           colorBorderSecondary: '#eaecf0',
-          borderRadius: 10,
-          fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+          borderRadius: 8,
+          fontSize: 14,
+          fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif'
         },
         components: {
           Button: {
@@ -58,8 +64,7 @@ export default function BasketSummary({ items, onIncrease, onDecrease, onRemove 
       <section className="basket-remote" data-testid="basket-remote">
         <header className="basket-header">
           <div>
-            <span className="basket-eyebrow">Sepet</span>
-            <Typography.Title level={2}>Sipariş özeti</Typography.Title>
+            <Typography.Title level={2}>Sepet</Typography.Title>
           </div>
           <span className="basket-count" data-testid="basket-count">
             {itemCount} ürün
@@ -81,7 +86,7 @@ export default function BasketSummary({ items, onIncrease, onDecrease, onRemove 
               renderItem={(item) => (
                 <List.Item data-testid="basket-item" data-product-id={item.id}>
                   <div className="basket-item">
-                    <Image width={64} height={76} src={item.image} alt={item.title} preview={false} />
+                    <Image width={64} height={72} src={item.image} alt={item.title} preview={false} />
                     <div className="basket-item-content">
                       <Typography.Text className="basket-item-title" ellipsis={{ tooltip: item.title }}>
                         {item.title}
@@ -89,39 +94,41 @@ export default function BasketSummary({ items, onIncrease, onDecrease, onRemove 
                       <Typography.Text type="secondary" className="basket-unit-price">
                         Birim fiyat: {priceFormatter.format(item.price)}
                       </Typography.Text>
-                      <div className="basket-actions">
-                        <div className="basket-quantity" aria-label={`${item.title} adedi`}>
-                          <Button
-                            size="small"
-                            disabled={item.quantity === 1}
-                            onClick={() => onDecrease(item.id)}
-                            aria-label="Adedi azalt"
-                            data-testid="decrease-item"
-                          >
-                            −
-                          </Button>
-                          <span data-testid="item-quantity">{item.quantity}</span>
-                          <Button
-                            size="small"
-                            onClick={() => onIncrease(item.id)}
-                            aria-label="Adedi artır"
-                            data-testid="increase-item"
-                          >
-                            +
-                          </Button>
-                        </div>
-                        <Button type="link" danger onClick={() => onRemove(item.id)} data-testid="remove-item">
-                          Sil
+                      <div className="basket-quantity" aria-label={`${item.title} adedi`}>
+                        <Button
+                          size="small"
+                          disabled={item.quantity === 1}
+                          onClick={() => onDecrease(item.id)}
+                          aria-label="Adedi azalt"
+                          data-testid="decrease-item"
+                        >
+                          −
+                        </Button>
+                        <span data-testid="item-quantity">{item.quantity}</span>
+                        <Button
+                          size="small"
+                          onClick={() => onIncrease(item.id)}
+                          aria-label="Adedi artır"
+                          data-testid="increase-item"
+                        >
+                          +
                         </Button>
                       </div>
+                    </div>
+                    <div className="basket-item-aside">
+                      <Typography.Text strong className="basket-line-total">
+                        {priceFormatter.format(item.price * item.quantity)}
+                      </Typography.Text>
+                      <Button type="link" danger onClick={() => onRemove(item.id)} data-testid="remove-item">
+                        Sil
+                      </Button>
                     </div>
                   </div>
                 </List.Item>
               )}
             />
-            <Divider />
             <div className="basket-total-row">
-              <Typography.Text>Sepet toplamı</Typography.Text>
+              <Typography.Text>Ara toplam</Typography.Text>
               <Typography.Text strong data-testid="basket-total">
                 {priceFormatter.format(total)}
               </Typography.Text>
