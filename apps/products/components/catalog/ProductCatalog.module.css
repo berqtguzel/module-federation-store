@@ -1,0 +1,152 @@
+.catalog {
+  width: 100%;
+  min-width: 0;
+  color: #1f1f1f;
+}
+.catalogHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eaecf0;
+}
+
+.catalogHeader h2 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.catalogHeader p {
+  max-width: 430px;
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.productColumn {
+  display: flex;
+}
+
+.productCard {
+  width: 100%;
+  overflow: hidden;
+  border-color: #eeeeee;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.05);
+}
+
+.productCard :global(.ant-card-body) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.imageFrame {
+  display: grid;
+  aspect-ratio: 4 / 5;
+  place-items: center;
+  padding: 24px;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+.imageFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 220ms ease;
+}
+
+.productCard:hover .imageFrame img {
+  transform: scale(1.035);
+}
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.category {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.productTitle {
+  display: -webkit-box;
+  min-height: 44px;
+  margin: 6px 0 8px !important;
+  overflow: hidden;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 1.375 !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rating > span:first-child {
+  color: #faad14;
+}
+
+.cardFooter {
+  display: grid;
+  gap: 10px;
+}
+
+.price {
+  color: #101828;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.statePanel {
+  width: 100%;
+  min-height: 180px;
+}
+
+.skeletonImage {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 4 / 5;
+}
+
+@media (max-width: 767px) {
+  .catalogHeader {
+    align-items: start;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+  }
+
+  .catalogHeader h2 {
+    font-size: 32px;
+  }
+
+  .imageFrame,
+  .skeletonImage {
+    aspect-ratio: 4 / 3;
+  }
+}

@@ -1,0 +1,186 @@
+.basket-remote {
+  display: flex;
+  width: 100%;
+  max-height: calc(100vh - 102px);
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.05);
+}
+
+.basket-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.basket-header .ant-typography {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.basket-count {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #475467;
+  background: #f2f4f7;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.basket-empty {
+  padding: 30px 0 22px;
+}
+
+.basket-list .ant-list-item {
+  padding: 14px 0;
+}
+
+.basket-list {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-gutter: stable;
+}
+
+.basket-item {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.basket-item .ant-image,
+.basket-item .ant-image-img {
+  flex: 0 0 auto;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #f8f9fb;
+}
+
+.basket-item-content {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.basket-item-title {
+  max-width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.basket-unit-price {
+  font-size: 12px;
+}
+
+.basket-item-aside {
+  display: flex;
+  min-width: 72px;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 6px;
+  text-align: right;
+}
+
+.basket-line-total {
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.basket-quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.basket-quantity .ant-btn {
+  width: 30px;
+  min-width: 30px;
+  padding-inline: 0;
+}
+
+.basket-quantity span {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.basket-item-aside > .ant-btn-link {
+  height: auto;
+  padding: 0;
+  font-size: 12px;
+}
+
+.basket-total-row {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid #eaecf0;
+  font-size: 14px;
+}
+
+.basket-total-row strong {
+  color: #101828;
+  font-size: 20px;
+}
+
+@media (max-width: 1080px) {
+  .basket-remote {
+    display: block;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .basket-list {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .basket-remote {
+    padding: 18px;
+  }
+
+  .basket-item .ant-image,
+  .basket-item .ant-image-img {
+    width: 56px !important;
+    height: 64px !important;
+  }
+
+  .basket-item {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .basket-item-aside {
+    grid-column: 2;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}

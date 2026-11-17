@@ -1,0 +1,156 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  color: #1f1f1f;
+  background: #f7f8fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f7f8fa;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.store-nav {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+}
+
+.store-nav-inner,
+.page-shell {
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.store-nav-inner {
+  display: flex;
+  min-height: 62px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.store-name {
+  color: #1f1f1f;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.basket-link {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #1f1f1f;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.basket-link:hover,
+.basket-link:focus-visible {
+  color: #1677ff;
+  background: #f0f5ff;
+  outline: none;
+}
+
+.basket-link svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.basket-badge {
+  display: grid;
+  min-width: 20px;
+  height: 20px;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 10px;
+  color: #ffffff;
+  background: #1677ff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.page-shell {
+  padding: 36px 0 64px;
+}
+
+.remote-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 400px);
+  align-items: start;
+  gap: 32px;
+}
+
+.products-slot,
+.basket-slot {
+  min-width: 0;
+}
+
+.basket-slot {
+  /* Masaüstünde sepet, uzun katalog kaydırılırken navbar altında görünür kalır. */
+  position: sticky;
+  top: 78px;
+  scroll-margin-top: 82px;
+}
+
+.remote-state {
+  min-height: 230px;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 10px;
+  color: #667085;
+  background: #ffffff;
+  text-align: center;
+}
+
+.remote-state-error {
+  border-color: #e6b0aa;
+  color: #922b21;
+  background: #fdedec;
+}
+
+@media (max-width: 1080px) {
+  .remote-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .basket-slot {
+    /* Tek kolonlu dar ekranda iç içe kaydırma yerine doğal belge akışı kullanılır. */
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .store-nav-inner,
+  .page-shell {
+    width: min(100% - 32px, 640px);
+  }
+
+  .page-shell {
+    padding: 24px 0 48px;
+  }
+}

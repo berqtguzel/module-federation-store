@@ -1,0 +1,29 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  color: #1f1f1f;
+  background: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #ffffff;
+  font-size: 14px;
+}
+
+.products-page {
+  width: min(1320px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+@media (max-width: 767px) {
+  .products-page {
+    width: min(100% - 32px, 560px);
+    padding: 28px 0 48px;
+  }
+}
