@@ -1,0 +1,26 @@
+services:
+  products:
+    build:
+      context: ./apps/products
+      args:
+        NEXT_PUBLIC_FAKE_STORE_API_URL: ${NEXT_PUBLIC_FAKE_STORE_API_URL:-https://fakestoreapi.com}
+    ports:
+      - "3101:3101"
+
+  basket:
+    build:
+      context: ./apps/basket
+    ports:
+      - "3102:3102"
+
+  host:
+    build:
+      context: ./apps/host
+      args:
+        PRODUCTS_REMOTE_URL: http://localhost:3101
+        BASKET_REMOTE_URL: http://localhost:3102
+    depends_on:
+      - products
+      - basket
+    ports:
+      - "3100:3100"

@@ -63,6 +63,35 @@ Copy-Item apps/products/.env.example apps/products/.env.local
 
 `.env.local` dosyaları Git'e alınmaz. `PRODUCTS_REMOTE_URL`, `BASKET_REMOTE_URL` ve `NEXT_PUBLIC_` değişkeni istemci bundle'ına build sırasında yazılır; production değerleri `npm run build` çalıştırılmadan önce verilmelidir. Bunlar gizli bilgi taşımamalıdır.
 
+## Docker Compose ile tek komutla çalıştırma
+
+Docker Desktop'ı Linux container modunda çalıştırın. Depo kökünde aşağıdaki tek komut üç uygulamayı kendi lock dosyasıyla bağımsız olarak build eder ve başlatır:
+
+```powershell
+docker compose up --build
+```
+
+| Servis | Adres | Container portu |
+| --- | --- | ---: |
+| Host | `http://localhost:3100` | 3100 |
+| Products Remote | `http://localhost:3101` | 3101 |
+| Basket Remote | `http://localhost:3102` | 3102 |
+
+Compose, Host image build'ine `PRODUCTS_REMOTE_URL=http://localhost:3101` ve `BASKET_REMOTE_URL=http://localhost:3102` argümanlarını verir. Remote dosyalarını container değil kullanıcının tarayıcısı istediği için istemci bundle'ında `products` veya `basket` gibi Docker servis adları kullanılmaz. Fake Store API adresi gerekirse build öncesinde `$env:NEXT_PUBLIC_FAKE_STORE_API_URL = 'https://api.example.com'` ile değiştirilebilir.
+
+Doğrulama için Host'u açın ve tarayıcı geliştirici araçlarında şunları kontrol edin:
+
+1. Products kataloğunda gerçek ürünler görünür.
+2. `http://localhost:3101/_next/static/chunks/remoteEntry.js` ve `http://localhost:3102/remoteEntry.js` istekleri ile bunların chunk istekleri başarılıdır.
+3. Bir ürünü sepete ekleme, adedi artırma/azaltma ve ürünü silme işlemleri çalışır.
+4. Products ve Basket adresleri Host'tan bağımsız olarak container dışından açılır.
+
+Servisleri ve Compose ağını kapatmak için:
+
+```powershell
+docker compose down
+```
+
 ## Development çalıştırma
 
 Üç ayrı PowerShell terminali açın:
