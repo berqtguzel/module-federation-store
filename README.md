@@ -1,5 +1,7 @@
 # Module Federation Store
 
+[Canlı demo](https://module-federation-store-host.berqtguzel.workers.dev)
+
 Word Frontend Developer Case Study için hazırlanmış, üç bağımsız uygulamadan oluşan mikro frontend mağaza örneğidir. Kaynak kod: [github.com/berqtguzel/module-federation-store](https://github.com/berqtguzel/module-federation-store).
 
 ## Mimari
