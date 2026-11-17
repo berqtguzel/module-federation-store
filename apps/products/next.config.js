@@ -2,6 +2,7 @@ const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
 
 const nextConfig = {
   reactStrictMode: true,
+  output: process.env.CLOUDFLARE_STATIC_EXPORT === 'true' ? 'export' : undefined,
   webpack(config) {
     config.plugins.push(
       new NextFederationPlugin({

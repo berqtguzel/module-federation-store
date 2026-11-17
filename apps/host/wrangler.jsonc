@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "module-federation-store-host",
+  "compatibility_date": "2026-11-17",
+  "vars": {
+    "PRODUCTS_REMOTE_URL": "https://module-federation-store-products.berqtguzel.workers.dev",
+    "BASKET_REMOTE_URL": "https://module-federation-store-basket.berqtguzel.workers.dev"
+  },
+  "assets": {
+    "directory": "./out"
+  }
+}

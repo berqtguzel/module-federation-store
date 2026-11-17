@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next dev -p 3100",
     "build": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next build",
+    "build:cloudflare": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true CLOUDFLARE_STATIC_EXPORT=true PRODUCTS_REMOTE_URL=https://module-federation-store-products.berqtguzel.workers.dev BASKET_REMOTE_URL=https://module-federation-store-basket.berqtguzel.workers.dev next build",
+    "deploy": "npm run build:cloudflare && wrangler deploy",
     "start": "next start -p 3100",
     "typecheck": "tsc --noEmit"
   },
@@ -20,7 +22,8 @@
     "@types/react": "18.3.20",
     "@types/react-dom": "18.3.5",
     "cross-env": "7.0.3",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.163.0"
   },
   "overrides": {
     "enhanced-resolve": "5.18.3",

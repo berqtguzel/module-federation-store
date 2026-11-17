@@ -1,6 +1,7 @@
 node_modules/
 .next/
 dist/
+out/
 build/
 coverage/
 .npm-cache/
@@ -9,3 +10,4 @@ coverage/
 !.env.example
 *.tsbuildinfo
 npm-debug.log*
+.wrangler/

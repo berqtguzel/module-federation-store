@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "module-federation-store-products",
+  "compatibility_date": "2026-11-17",
+  "vars": {
+    "NEXT_PUBLIC_FAKE_STORE_API_URL": "https://fakestoreapi.com"
+  },
+  "assets": {
+    "directory": "./out"
+  }
+}

@@ -5,6 +5,7 @@ const basketRemoteUrl = process.env.BASKET_REMOTE_URL || 'http://localhost:3102'
 
 const nextConfig = {
   reactStrictMode: true,
+  output: process.env.CLOUDFLARE_STATIC_EXPORT === 'true' ? 'export' : undefined,
   env: {
     PRODUCTS_REMOTE_URL: productsRemoteUrl,
     BASKET_REMOTE_URL: basketRemoteUrl
